@@ -3,7 +3,7 @@ from formatted_string import formatted_url
 
 '''
 @Date: 23.5.18
-@Version: 1.1.2
+@Version: 1.1.3
 @Author: Dorel Moran
 
 @Description: Take 2 csv's as input:
@@ -13,8 +13,6 @@ From A- make a list of tuples of (worker ID, input name, answer).
 Compare with B's tuples of (input name, answer) for reference for 'correct' / 'wrong' answers.
 
 outputs a csv with worker ID , % of correct answers, number of correct answers, and total answers.
-
-
 
 '''
 
