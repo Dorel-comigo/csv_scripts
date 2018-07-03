@@ -3,7 +3,7 @@ from formatted_string import formatted_url
 
 '''
 @Date: 23.5.18
-@Version: 1.1.3
+@Version: 1.1.2
 @Author: Dorel Moran
 
 @Description: Take 2 csv's as input:
