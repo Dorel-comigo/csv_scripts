@@ -1,20 +1,27 @@
 from google.cloud import bigquery
-import os
+import os, sys
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= \
-    "C:\\Users\dorel.moran\PycharmProjects\csv_scripts\BigQuery\google_key_credentials.json"
+def table_query(input_A, input_B):
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= \
+        "C:\\Users\dorel.moran\PycharmProjects\csv_scripts\BigQuery\google_key_credentials.json"
 
 
-client = bigquery.Client()
-dataset_id = 'tests'
+    client = bigquery.Client()
+    dataset_ref = client.dataset('tests')
+    table_ref = dataset_ref.table('test1')
+    table = client.get_table(table_ref)
 
-dataset_ref = client.dataset(dataset_id)
-dataset = client.get_dataset(dataset_ref)
-print('Dataset ID: {}'.format(dataset_id))
-print('Tables:')
-tables = list(client.list_tables(dataset_ref))  # API request(s)
-if tables:
-    for table in tables:
-        print('\t{}'.format(table.table_id))
-else:
-    print('\tThis dataset does not contain any tables.')
+    query = (
+        'SELECT '
+    )
+
+
+def main():
+    if len(sys.argv) >= 2: input_A = sys.argv[1]
+    else: input_A = input("Please enter a number for the relevant query to run:"
+                          "\n 1 - SELECT"
+                          "\n 2 - INSERT"
+                          "\n 3 - UPDATE: ")
+    if input_A == '1':
+        if len(sys.argv) >= 3: input_B = sys.argv[2]
+        else: input_B = input("Please enter the names of the requested columns to show: ")
