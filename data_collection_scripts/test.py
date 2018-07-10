@@ -1,8 +1,9 @@
 from google.cloud import bigquery
-import os, sys
+from formatted_string import formatted_name
+import os, sys, csv
 
 
-def table_query(input_A, input_B, input_where):
+def table_query(input_A, input_B):
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = \
         "C:\\Users\dorel.moran\PycharmProjects\csv_scripts\BigQuery\google_key_credentials.json"
 
@@ -25,17 +26,27 @@ def table_query(input_A, input_B, input_where):
     query_job = client.query(query)
     for row in query_job: print(row)
 
-def select_query(input_B, input_where, table_root):
+def select_query(input_B, table_root):
     if input_B: pass
     else: input_B = '*'
-    if input_where ==
+    #TODO: Add 'WHERE' timestamp column is latest for each item (differentiated by item_id)
     return ('SELECT ' + input_B
              + ' FROM ' + table_root)
 
 
 def insert_query(input_B, table_root):
-    return ('SELECT ' + input_B
-            + ' FROM ' + table_root)
+    with open(input_B + '.csv', newline='', encoding='utf-8') as csv_file:
+        reader = csv.DictReader(csv_file)
+        input_list = []
+        '''
+        @col_headers --> Change column names here based on input csv file's columns,
+        '''
+        col_headers = ['item_name', 'item_type', 'item_year', 'fb_annotation']
+        for row in reader: input_list.append([formatted_name(row(col_headers[0])), row(col_headers[0]),
+                                              row(col_headers[1]), row(col_headers[2]), row(col_headers[3])])
+
+        return ('INSERT INTO ' + table_root + '(' + ''
+                + ' VALUES ' + y)
 
 
 def update_query():
@@ -45,7 +56,7 @@ def update_query():
 def main():
     input_A = sys.argv[1]
     input_B = ''
-    input_where = ''
+    #TODO: 'WHERE' input as an additional customization for sql command
     if input_A == 'select':
         if sys.argv[2] != 'where':
             arg_count = len(sys.argv)
@@ -55,9 +66,9 @@ def main():
     elif input_A == 'insert':
         input_B = sys.argv[2]
     else:
-        print('ERROR - First argument should only be "select" or "insert"')
+        print('Argument ERROR - First argument should only be "select" or "insert"')
         exit(1)
-    table_query(input_A, input_B, input_where)
+    table_query(input_A, input_B)
 
 
 if __name__ == '__main__':
