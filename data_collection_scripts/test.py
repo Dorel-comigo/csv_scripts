@@ -49,10 +49,6 @@ def insert_query(input_B, table_root):
                 + ' VALUES ' + y)
 
 
-def update_query():
-    pass
-
-
 def main():
     input_A = sys.argv[1]
     input_B = ''
