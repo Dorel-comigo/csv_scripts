@@ -23,6 +23,7 @@ def formatted_url(url):
 def formatted_name(name):
     result = name.lower()
     result = result.replace(' ', '_')
+    result = result.replace('-', '_')
     result = result.replace(' & ', '_and_')
     result = re.sub(r'[\W]+', '', result)
     return result
